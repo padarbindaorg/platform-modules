@@ -60,7 +60,7 @@ jobs:
       - name: list directory
         run: |
           sudo apt-get install tree
-          tree -L 2
+          tree .
 
       # - name: Create backend
       #   id: create-backend
