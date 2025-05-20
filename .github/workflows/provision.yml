@@ -48,8 +48,8 @@ jobs:
           repository: "padarbindaorg/platform-modules"
           ref: "main"
           token: ${{ steps.token-generator-for-platform-modules.outputs.token }}
-          path: .
-          
+          path: ./platform-modules
+
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
