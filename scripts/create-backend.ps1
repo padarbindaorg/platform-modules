@@ -25,7 +25,7 @@ try{
     }
 }
 catch{
-    Write-Host "Error creating bucket"+$_.message
+    Write-Host "Error creating bucket " + $_.message
     exit(1)
 }
 
