@@ -76,3 +76,37 @@ jobs:
         run: |
           cd ./platform-modules/scripts
           ./create-backend.ps1 -bucketName "${{inputs.backend_bucket_name}}-${{inputs.application_name}}" -dynamoDbTableName "${{inputs.backend_dynamo_table_name}}-${{inputs.application_name}}" -region "${{inputs.aws_region}}"
+
+  plan-terraform:
+    runs-on: ubuntu-latest
+    needs: create-backend
+    steps:
+      - name: Generate token
+        id: token-generator-for-platform-modules
+        uses: actions/create-github-app-token@v1
+        with:
+          repositories: platform-modules
+          app-id: ${{secrets.app_id}}
+          private-key: ${{secrets.app_secret_key}}
+          owner: ${{ github.repository_owner }}    
+    
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      
+      - name: Checkout terraform module
+        uses: actions/checkout@v2
+        with:
+          repository: "padarbindaorg/platform-modules"
+          ref: "main"
+          token: ${{ steps.token-generator-for-platform-modules.outputs.token }}
+          path: ./platform-modules
+      
+      - name: terraform init
+        id: terraform-init
+        run: |
+          terraform init \
+            -backend-config="bucket=${{ inputs.backend_bucket_name }}-${{ inputs.application_name }}" \
+            -backend-config="dynamodb_table=${{ inputs.backend_dynamo_table_name }}-${{ inputs.application_name }}" \
+            -backend-config="region=${{ inputs.aws_region }}"
+            -backend-config="key=${{ inputs.application_name }}-${{ inputs.environment }}.tfstate" 
