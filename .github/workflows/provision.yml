@@ -111,7 +111,7 @@ jobs:
           aws-access-key-id: ${{ secrets.aws_access_key_id }}
           aws-secret-access-key: ${{ secrets.aws_access_secret }}
           aws-region: ${{ inputs.aws_region }}
-          
+
       - name: terraform init
         id: terraform-init
         run: |
@@ -121,3 +121,8 @@ jobs:
         id: terraform-plan
         run: |
           terraform plan
+
+      - name: terraform apply
+        id: terraform-apply
+        run: |
+          terraform apply -auto-approve
