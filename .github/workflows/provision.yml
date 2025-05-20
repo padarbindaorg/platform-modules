@@ -32,7 +32,8 @@ jobs:
           repositories: platform-modules
           app-id: ${{secrets.APP_ID}}
           private-key: ${{secrets.APP_SECRET_KEY}}
-          owner: ${{ github.repository_owner }}       
+          owner: ${{ github.repository_owner }}    
+          appid: ${{ secrets.APP_ID }}   
           
     
       - name: Checkout code
