@@ -9,6 +9,12 @@ on:
       environment:
         required: true
         type: string
+      backend_bucket_name:
+        required: true
+        type: string
+      backend_dynamo_table_name:
+        required: true
+        type: string
     secrets:
       aws_access_key_id:
         required: true
@@ -19,5 +25,40 @@ jobs:
   create-backend:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate token
+        id: token-generator-for-platform-modules
+        uses: actions/create-github-token@v2
+        with:
+          repository: platform-modules
+          app-id: ${{secrets.APP_ID}}
+          private-key: ${{secrets.APP_SECRET_KEY}}
+    
       - name: Checkout code
         uses: actions/checkout@v2
+      
+      - name: Checkout terraform module
+        uses: actions/checkout@v2
+        with:
+          repository: "padarbindaorg/platform-modules"
+          ref: "main"
+          token: ${{ steps.token-generator-for-platform-modules.outputs.token }}
+
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.aws_access_secret }}
+          aws-region: ${{ inputs.aws_region }}
+      
+      # - name: Create backend
+      #   id: create-backend
+      #   shell: pwsh
+      #   run: |
+      #     cd ./platform-modules/scripts
+      #     ./create-backend.ps1 -bucketName "${{inputs.backend_bucket_name
+      #     }}" -dynamoDbTableName "${{vars.DYNAMODBTABLE}}" -region "${{vars.AWS_REGION}}"
+
+      - name: list directory
+        run: |
+          sudo apt-get install tree
+          tree -L 2
