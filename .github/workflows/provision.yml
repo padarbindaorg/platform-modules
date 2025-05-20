@@ -37,7 +37,6 @@ jobs:
           app-id: ${{secrets.app_id}}
           private-key: ${{secrets.app_secret_key}}
           owner: ${{ github.repository_owner }}    
-          
     
       - name: Checkout code
         uses: actions/checkout@v2
@@ -56,15 +55,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.aws_access_secret }}
           aws-region: ${{ inputs.aws_region }}
       
+      - name: list directory
+        run: |
+          sudo apt-get install tree
+          tree -L 2
+
       # - name: Create backend
       #   id: create-backend
       #   shell: pwsh
       #   run: |
       #     cd ./platform-modules/scripts
-      #     ./create-backend.ps1 -bucketName "${{inputs.backend_bucket_name
-      #     }}" -dynamoDbTableName "${{vars.DYNAMODBTABLE}}" -region "${{vars.AWS_REGION}}"
-
-      - name: list directory
-        run: |
-          sudo apt-get install tree
-          tree -L 2
+      #     ./create-backend.ps1 -bucketName "${{inputs.backend_bucket_name}}" -dynamoDbTableName "${input.backend_dynamo_table_name}}" -region "${{inputs.aws_region}}"
