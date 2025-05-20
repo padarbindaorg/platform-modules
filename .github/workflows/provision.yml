@@ -27,13 +27,13 @@ jobs:
     steps:
       - name: Generate token
         id: token-generator-for-platform-modules
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v1
         with:
           repositories: platform-modules
           app-id: ${{secrets.APP_ID}}
           private-key: ${{secrets.APP_SECRET_KEY}}
           owner: ${{ github.repository_owner }}       
-          appid: ${{ secrets.APP_ID }}   
+          
     
       - name: Checkout code
         uses: actions/checkout@v2
