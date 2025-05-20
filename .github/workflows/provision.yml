@@ -108,4 +108,4 @@ jobs:
       - name: terraform init
         id: terraform-init
         run: |
-          terraform init -backend-config="bucket=${{ inputs.backend_bucket_name }}-${{ inputs.application_name }}" -backend-config="dynamodb_table=${{ inputs.backend_dynamo_table_name }}-${{ inputs.application_name }}" -backend-config="region=${{ inputs.aws_region }}" -backend-config="key=${{ inputs.application_name }}-${{ inputs.environment }}.tfstate" -backend-config="type=s3"
+          terraform init backend=false -backend-config="bucket=${{ inputs.backend_bucket_name }}-${{ inputs.application_name }}" -backend-config="dynamodb_table=${{ inputs.backend_dynamo_table_name }}-${{ inputs.application_name }}" -backend-config="region=${{ inputs.aws_region }}" -backend-config="key=${{ inputs.application_name }}-${{ inputs.environment }}.tfstate" -backend-config="type=s3"
