@@ -102,6 +102,9 @@ jobs:
           token: ${{ steps.token-generator-for-platform-modules.outputs.token }}
           path: ./platform-modules
       
+      - name: install terraform
+        uses: hashicorp/setup-terraform@v3
+                
       - name: terraform init
         id: terraform-init
         run: |
