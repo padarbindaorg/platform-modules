@@ -75,4 +75,4 @@ jobs:
         shell: pwsh
         run: |
           cd ./platform-modules/scripts
-          ./create-backend.ps1 -bucketName "${{inputs.backend_bucket_name}}-${{inputs.application_name}}" -dynamoDbTableName "${inputs.backend_dynamo_table_name}}-${{inputs.application_name}}" -region "${{inputs.aws_region}}"
+          ./create-backend.ps1 -bucketName "${{inputs.backend_bucket_name}}-${{inputs.application_name}}" -dynamoDbTableName "${{inputs.backend_dynamo_table_name}}-${{inputs.application_name}}" -region "${{inputs.aws_region}}"
