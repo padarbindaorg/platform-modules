@@ -30,11 +30,9 @@ jobs:
         uses: actions/create-github-app-token@v1
         with:
           repositories: platform-modules
-          app-id: ${{secrets.APP_ID}}
+          app-id: "1298957"
           private-key: ${{secrets.APP_SECRET_KEY}}
-          owner: ${{ github.repository_owner }}    
-          appid: ${{ secrets.APP_ID }}   
-          
+          owner: ${{ github.repository_owner }}              
     
       - name: Checkout code
         uses: actions/checkout@v2
