@@ -32,6 +32,7 @@ jobs:
           repositories: platform-modules
           app-id: ${{secrets.APP_ID}}
           private-key: ${{secrets.APP_SECRET_KEY}}
+          owner: ${{ github.repository_owner }}          
     
       - name: Checkout code
         uses: actions/checkout@v2
