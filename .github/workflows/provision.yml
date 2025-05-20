@@ -20,6 +20,10 @@ on:
         required: true
       aws_access_secret:
         required: true
+      app_id:
+        required: true
+      app_secret_key:
+        required: true
 
 jobs:
   create-backend:
@@ -30,8 +34,8 @@ jobs:
         uses: actions/create-github-app-token@v1
         with:
           repositories: platform-modules
-          app-id: ${{secrets.APP_ID}}
-          private-key: ${{secrets.APP_SECRET_KEY}}
+          app-id: ${{secrets.app_id}}
+          private-key: ${{secrets.app_secret_key}}
           owner: ${{ github.repository_owner }}    
           
     
